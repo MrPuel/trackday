@@ -15,6 +15,32 @@ class OrganiserTrackdayTest {
 
     @org.junit.jupiter.api.Test
     void createTrackday() {
+        List<Equipement> equipements = new ArrayList<>(){
+            {
+                add(new Equipement(1, true));
+                add(new Equipement(2, true));
+            }
+        };
+
+        List<Comissaire> comissaires = new ArrayList<>(){
+            {
+                add(new Comissaire(1, RolePiste.CHEF_PISTE));
+                add(new Comissaire(2, RolePiste.COMISSAIRE_PISTE));
+                add(new Comissaire(3, RolePiste.COMISSAIRE_PISTE));
+                add(new Comissaire(4, RolePiste.CHEF_PISTE));
+            }
+        };
+
+        List<Integer> vehiculeIds = new ArrayList<>(){
+            {
+                add(1);
+                add(2);
+            }
+        };
+        Date date = new Date();
+        Trackday trackday = new OrganiserTrackday().createTrackday(date,1, equipements, vehiculeIds, comissaires);
+        boolean trackdayCreated = trackday != null;
+        assertTrue(trackdayCreated, "Le trackday n'a pas été créé.");
     }
 
     @org.junit.jupiter.api.Test
