@@ -20,6 +20,10 @@ public class OrganiserTrackday {
             return null;
         }
 
+        if(!checkDirecteurAvailability(comissaires)){
+            return null;
+        }
+
         return new Trackday(date, pisteId, equipements, vehiculeIds, comissaires);
     }
 
