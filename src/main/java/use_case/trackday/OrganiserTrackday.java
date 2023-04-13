@@ -1,12 +1,16 @@
 package use_case.trackday;
 
-import model.Comissaire;
-import model.Equipement;
-import model.RolePiste;
-import model.Trackday;
+import dto.Comissaire;
+import dto.Equipement;
+import dto.RolePiste;
+import dto.Trackday;
 
 import java.util.Date;
 import java.util.List;
+
+import static model.Commissaire.getNbCommisaires;
+import static model.Directeur.checkDirecteurAvailability;
+import static model.Equipement.getNbEquipementValide;
 
 public class OrganiserTrackday {
     //piste préparé, équipement révisé, coaching, véhicule, comissaire, date
@@ -27,30 +31,4 @@ public class OrganiserTrackday {
         return new Trackday(date, pisteId, equipements, vehiculeIds, comissaires);
     }
 
-    public double getNbEquipementValide(List<Equipement> equipements){
-        int nbEquipementValide = 0;
-        if (equipements.size() == 0){
-            return 0;
-        }
-        for (Equipement equipement : equipements) {
-            if (equipement.checkEquipement()) {
-                nbEquipementValide++;
-            }
-        }
-
-        return (double)nbEquipementValide/equipements.size() * 100;
-    }
-     public int getNbCommisaires(List<Comissaire> comissaires) {
-         return comissaires.size();
-     }
-
-     public boolean checkDirecteurAvailability(List<Comissaire> comissaires) {
-
-         for (Comissaire comissaire : comissaires) {
-             if (comissaire.getRole() == RolePiste.CHEF_PISTE) {
-                 return true;
-             }
-         }
-         return false;
-     }
 }

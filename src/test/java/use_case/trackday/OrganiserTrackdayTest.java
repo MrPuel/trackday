@@ -1,15 +1,16 @@
 package use_case.trackday;
 
-import model.Comissaire;
-import model.Equipement;
-import model.RolePiste;
-import model.Trackday;
+import dto.Comissaire;
+import dto.Equipement;
+import dto.RolePiste;
+import dto.Trackday;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static model.Equipement.getNbEquipementValide;
 
 class OrganiserTrackdayTest {
 
@@ -44,7 +45,7 @@ class OrganiserTrackdayTest {
     }
 
     @org.junit.jupiter.api.Test
-    void getNbEquipementValide() {
+    void getNbEquipementsValide() {
         List<Equipement> equipements = new ArrayList<>(){
             {
                 add(new Equipement(1, true));
@@ -52,7 +53,7 @@ class OrganiserTrackdayTest {
             }
         };
 
-        double nbEquipementValide = new OrganiserTrackday().getNbEquipementValide(equipements);
+        double nbEquipementValide = getNbEquipementValide(equipements);
         assertTrue(nbEquipementValide >= 80, "Il y a moins de 80% d'équipements valides.");
     }
 
@@ -154,6 +155,12 @@ class OrganiserTrackdayTest {
     }
 
     private List<Integer> getVehiculeIdList(){
-        return List.of(1,2,3,4,5);
+        var vehiculeId = new ArrayList<Integer>();
+        vehiculeId.add(1);
+        vehiculeId.add(2);
+        vehiculeId.add(3);
+        vehiculeId.add(4);
+        vehiculeId.add(5);
+        return vehiculeId;
     }
 }

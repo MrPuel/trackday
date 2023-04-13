@@ -1,20 +1,19 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Equipement {
-    private int id;
-    private boolean estRevise;
+    public static double getNbEquipementValide(List<dto.Equipement> equipements){
+        int nbEquipementValide = 0;
+        if (equipements.size() == 0){
+            return 0;
+        }
+        for (dto.Equipement equipement : equipements) {
+            if (equipement.checkEquipement()) {
+                nbEquipementValide++;
+            }
+        }
 
-    public boolean checkEquipement(){
-        return estRevise;
+        return (double)nbEquipementValide/equipements.size() * 100;
     }
-
 }
