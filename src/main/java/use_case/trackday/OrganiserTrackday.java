@@ -1,15 +1,18 @@
 package use_case.trackday;
 
+import model.Comissaire;
+import model.Equipement;
+import model.RolePiste;
+import model.Trackday;
+
+import java.util.Date;
 import java.util.List;
 
 public class OrganiserTrackday {
     //piste préparé, équipement révisé, coaching, véhicule, comissaire, date
 
-    public Trackday createTrackday(date date, int pisteId, List<equipement> equipements, List<Integer> vehicules, List<comissaire> comissaires){
+    public Trackday createTrackday(Date date, int pisteId, List<Equipement> equipements, List<Integer> vehiculeIds, List<Comissaire> comissaires){
         //créer un trackday
-        if(!piste.checkPiste()){
-            return null;
-        }
         if(getNbEquipementValide(equipements)< 80){
             return null;
         }
@@ -17,22 +20,33 @@ public class OrganiserTrackday {
             return null;
         }
 
-        return new Trackday(date, pisteId, equipements, vehicules, comissaires);
+        return new Trackday(date, pisteId, equipements, vehiculeIds, comissaires);
     }
 
-    public double getNbEquipementValide(list<equipement> equipements){
+    public double getNbEquipementValide(List<Equipement> equipements){
         int nbEquipementValide = 0;
         if (equipements.size() == 0){
             return 0;
         }
-        for (int i = 0; i < equipements.size(); i++) {
-            if(equipements.get(i).checkEquipement()){
+        for (Equipement equipement : equipements) {
+            if (equipement.checkEquipement()) {
                 nbEquipementValide++;
             }
         }
-        return nbEquipementValide/equipements.size() * 100;
+
+        return (double)nbEquipementValide/equipements.size() * 100;
     }
-     public int getNbCommisaires(list<comissaire> comissaires) {
+     public int getNbCommisaires(List<Comissaire> comissaires) {
          return comissaires.size();
+     }
+
+     public boolean checkDirecteurAvailability(List<Comissaire> comissaires) {
+
+         for (Comissaire comissaire : comissaires) {
+             if (comissaire.getRole() == RolePiste.CHEF_PISTE) {
+                 return true;
+             }
+         }
+         return false;
      }
 }
