@@ -4,6 +4,7 @@ import domain.Comissaire;
 import domain.Equipement;
 import domain.RolePiste;
 import domain.Trackday;
+import model.Commissaire;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,7 +74,8 @@ class OrganiserTrackdayTest {
             }
         };
 
-        assertTrue(comissaires.size() >= 4, "Il y a moins de 4 comissaires disponibles.");
+        int nbComissaire = Commissaire.getNbCommisaires(comissaires);
+        assertTrue(nbComissaire >= 4, "Il y a moins de 4 comissaires disponibles.");
     }
 
     @org.junit.jupiter.api.Test
@@ -87,14 +89,7 @@ class OrganiserTrackdayTest {
             }
         };
 
-        boolean directeurAvailability = false;
-
-        for(Comissaire comissaire : comissaires){
-            if(comissaire.getRole() == RolePiste.DIRECTEUR_PISTE){
-                directeurAvailability = true;
-                break;
-            }
-        }
+        boolean directeurAvailability = Commissaire.checkDirecteurAvailability(comissaires);
 
         assertTrue(directeurAvailability, "Il n'y a pas de directeur de piste disponible.");
     }
