@@ -1,7 +1,7 @@
-package dto;
+package domain;
 
 public enum RolePiste {
 
-    CHEF_PISTE,
+    DIRECTEUR_PISTE,
     COMISSAIRE_PISTE
 }
