@@ -27,8 +27,8 @@ class OrganiserTrackdayTest {
         List<CommissaireDTO> commissaireDTOS = new ArrayList<>(){
             {
                 add(new CommissaireDTO(1, RolePisteDTO.DIRECTEUR_PISTE));
-                add(new CommissaireDTO(2, RolePisteDTO.COMISSAIRE_PISTE));
-                add(new CommissaireDTO(3, RolePisteDTO.COMISSAIRE_PISTE));
+                add(new CommissaireDTO(2, RolePisteDTO.COMMISSAIRE_PISTE));
+                add(new CommissaireDTO(3, RolePisteDTO.COMMISSAIRE_PISTE));
                 add(new CommissaireDTO(4, RolePisteDTO.DIRECTEUR_PISTE));
             }
         };
@@ -68,14 +68,14 @@ class OrganiserTrackdayTest {
         List<CommissaireDTO> commissaireDTOS = new ArrayList<>(){
             {
                 add(new CommissaireDTO(1, RolePisteDTO.DIRECTEUR_PISTE));
-                add(new CommissaireDTO(2, RolePisteDTO.COMISSAIRE_PISTE));
-                add(new CommissaireDTO(3, RolePisteDTO.COMISSAIRE_PISTE));
+                add(new CommissaireDTO(2, RolePisteDTO.COMMISSAIRE_PISTE));
+                add(new CommissaireDTO(3, RolePisteDTO.COMMISSAIRE_PISTE));
                 add(new CommissaireDTO(4, RolePisteDTO.DIRECTEUR_PISTE));
             }
         };
 
-        int nbComissaire = Commissaire.getNbCommisaires(commissaireDTOS);
-        assertTrue(nbComissaire >= 4, "Il y a moins de 4 comissaires disponibles.");
+        int nbCommissaire = Commissaire.getNbCommisaires(commissaireDTOS);
+        assertTrue(nbCommissaire >= 4, "Il y a moins de 4 commissaires disponibles.");
     }
 
     @org.junit.jupiter.api.Test
@@ -83,8 +83,8 @@ class OrganiserTrackdayTest {
         List<CommissaireDTO> commissaireDTOS = new ArrayList<>(){
             {
                 add(new CommissaireDTO(1, RolePisteDTO.DIRECTEUR_PISTE));
-                add(new CommissaireDTO(2, RolePisteDTO.COMISSAIRE_PISTE));
-                add(new CommissaireDTO(3, RolePisteDTO.COMISSAIRE_PISTE));
+                add(new CommissaireDTO(2, RolePisteDTO.COMMISSAIRE_PISTE));
+                add(new CommissaireDTO(3, RolePisteDTO.COMMISSAIRE_PISTE));
                 add(new CommissaireDTO(4, RolePisteDTO.DIRECTEUR_PISTE));
             }
         };
@@ -97,7 +97,7 @@ class OrganiserTrackdayTest {
     @org.junit.jupiter.api.Test
     void organiseTrackdayOK() {
         try {
-            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(5, true));
+            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getCommissaireList(5, true));
             assertNotNull(result);
         } catch (Exception e) {
             System.out.println(e);
@@ -106,9 +106,9 @@ class OrganiserTrackdayTest {
     }
 
     @org.junit.jupiter.api.Test
-    void organiseTrackdayNotEnoughComissaire() {
+    void organiseTrackdayNotEnoughCommissaire() {
         try {
-            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(3, true));
+            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getCommissaireList(3, true));
             assertNull(result);
         } catch (Exception e) {
             assertEquals("Not enough commissaires", e.getMessage());
@@ -119,7 +119,7 @@ class OrganiserTrackdayTest {
     @org.junit.jupiter.api.Test
     void organiseTrackdayNoDirector() {
         try {
-            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(5, false));
+            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getCommissaireList(5, false));
             assertNull(result);
         } catch (Exception e) {
             assertEquals("No director available", e.getMessage());
@@ -130,7 +130,7 @@ class OrganiserTrackdayTest {
     @org.junit.jupiter.api.Test
     void organiseTrackdayNotEnoughEquipment() {
         try {
-            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(false), getVehiculeIdList(), getComissaireList(5, true));
+            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(false), getVehiculeIdList(), getCommissaireList(5, true));
             assertNull(result);
         } catch (Exception e) {
             assertEquals("Not enough equipements", e.getMessage());
@@ -138,17 +138,17 @@ class OrganiserTrackdayTest {
 
     }
 
-    private List<CommissaireDTO> getComissaireList(int nbComissaires, boolean hasChef) {
+    private List<CommissaireDTO> getCommissaireList(int nbCommissaires, boolean hasChef) {
         List<CommissaireDTO> resultList = new ArrayList<>();
         int id = 0;
         if(hasChef) {
             id++;
             resultList.add(new CommissaireDTO(id, RolePisteDTO.DIRECTEUR_PISTE));
         }
-        int until = nbComissaires-id;
+        int until = nbCommissaires-id;
         for (int i = 0; i < until; i++) {
             id++;
-            resultList.add(new CommissaireDTO(id, RolePisteDTO.COMISSAIRE_PISTE));
+            resultList.add(new CommissaireDTO(id, RolePisteDTO.COMMISSAIRE_PISTE));
 
         }
 
