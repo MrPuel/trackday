@@ -116,18 +116,18 @@ class OrganiserTrackdayTest {
             Trackday result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(3, true));
             assertNull(result);
         } catch (Exception e) {
-            System.out.println(e);
+            assertEquals("Not enough commissaires", e.getMessage());
         }
 
     }
 
     @org.junit.jupiter.api.Test
-    void organiseTrackdayNoChefComissaire() {
+    void organiseTrackdayNoDirector() {
         try {
             Trackday result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(5, false));
             assertNull(result);
         } catch (Exception e) {
-            System.out.println(e);
+            assertEquals("No director available", e.getMessage());
         }
 
     }
@@ -138,7 +138,7 @@ class OrganiserTrackdayTest {
             Trackday result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(false), getVehiculeIdList(), getComissaireList(5, true));
             assertNull(result);
         } catch (Exception e) {
-            System.out.println(e);
+            assertEquals("Not enough equipements", e.getMessage());
         }
 
     }

@@ -16,10 +16,10 @@ public class OrganiserTrackday {
     public Trackday createTrackday(Date date, int pisteId, List<Equipement> equipements, List<Integer> vehiculeIds, List<Comissaire> comissaires) throws Exception {
         //créer un trackday
         if(getNbEquipementValide(equipements)< 80){
-            throw new Exception("bad equipements");
+            throw new Exception("Not enough equipements");
         }
         if(getNbCommisaires(comissaires) < 4){
-            throw new Exception("Not enougth commissaires");
+            throw new Exception("Not enough commissaires");
         }
 
         if(!checkDirecteurAvailability(comissaires)){
