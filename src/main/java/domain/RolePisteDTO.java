@@ -1,6 +1,6 @@
 package domain;
 
-public enum RolePiste {
+public enum RolePisteDTO {
 
     DIRECTEUR_PISTE,
     COMISSAIRE_PISTE

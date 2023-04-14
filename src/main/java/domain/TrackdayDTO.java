@@ -7,16 +7,18 @@ import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Trackday {
+public class TrackdayDTO {
+    private UUID id;
     private Date date;
     private int pisteId;
-    private List<Equipement> equipements;
+    private List<EquipementDTO> equipementDTOS;
     private List<Integer> vehiculeIds;
-    private List<Comissaire> comissaires;
+    private List<CommissaireDTO> commissaireDTOS;
 
 }

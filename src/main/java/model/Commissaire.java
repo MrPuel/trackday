@@ -1,19 +1,19 @@
 package model;
 
-import domain.Comissaire;
-import domain.RolePiste;
+import domain.CommissaireDTO;
+import domain.RolePisteDTO;
 
 import java.util.List;
 
 public class Commissaire {
-    public static int getNbCommisaires(List<Comissaire> comissaires) {
-        return comissaires.size();
+    public static int getNbCommisaires(List<CommissaireDTO> commissaireDTOS) {
+        return commissaireDTOS.size();
     }
 
-    public static boolean checkDirecteurAvailability(List<Comissaire> comissaires) {
+    public static boolean checkDirecteurAvailability(List<CommissaireDTO> commissaireDTOS) {
 
-        for (Comissaire comissaire : comissaires) {
-            if (comissaire.getRole() == RolePiste.DIRECTEUR_PISTE) {
+        for (CommissaireDTO commissaireDTO : commissaireDTOS) {
+            if (commissaireDTO.getRole() == RolePisteDTO.DIRECTEUR_PISTE) {
                 return true;
             }
         }

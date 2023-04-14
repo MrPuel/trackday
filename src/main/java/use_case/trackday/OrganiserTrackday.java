@@ -1,11 +1,12 @@
 package use_case.trackday;
 
-import domain.Comissaire;
-import domain.Equipement;
-import domain.Trackday;
+import domain.CommissaireDTO;
+import domain.EquipementDTO;
+import domain.TrackdayDTO;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static model.Commissaire.checkDirecteurAvailability;
 import static model.Commissaire.getNbCommisaires;
@@ -13,20 +14,22 @@ import static model.Equipement.getNbEquipementValide;
 
 public class OrganiserTrackday {
 
-    public Trackday createTrackday(Date date, int pisteId, List<Equipement> equipements, List<Integer> vehiculeIds, List<Comissaire> comissaires) throws Exception {
+    public TrackdayDTO createTrackday(Date date, int pisteId, List<EquipementDTO> equipementDTOS, List<Integer> vehiculeIds, List<CommissaireDTO> commissaireDTOS) throws Exception {
         //créer un trackday
-        if(getNbEquipementValide(equipements)< 80){
+        if(getNbEquipementValide(equipementDTOS)< 80){
             throw new Exception("Not enough equipements");
         }
-        if(getNbCommisaires(comissaires) < 4){
+        if(getNbCommisaires(commissaireDTOS) < 4){
             throw new Exception("Not enough commissaires");
         }
 
-        if(!checkDirecteurAvailability(comissaires)){
+        if(!checkDirecteurAvailability(commissaireDTOS)){
             throw new Exception("No director available");
         }
 
-        return new Trackday(date, pisteId, equipements, vehiculeIds, comissaires);
+        UUID uuid = UUID.randomUUID();
+
+        return new TrackdayDTO(uuid, date, pisteId, equipementDTOS, vehiculeIds, commissaireDTOS);
     }
 
 }

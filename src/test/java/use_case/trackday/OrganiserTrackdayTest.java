@@ -1,9 +1,9 @@
 package use_case.trackday;
 
-import domain.Comissaire;
-import domain.Equipement;
-import domain.RolePiste;
-import domain.Trackday;
+import domain.CommissaireDTO;
+import domain.EquipementDTO;
+import domain.RolePisteDTO;
+import domain.TrackdayDTO;
 import model.Commissaire;
 
 import java.util.ArrayList;
@@ -17,19 +17,19 @@ class OrganiserTrackdayTest {
 
     @org.junit.jupiter.api.Test
     void createTrackday() {
-        List<Equipement> equipements = new ArrayList<>(){
+        List<EquipementDTO> equipementDTOS = new ArrayList<>(){
             {
-                add(new Equipement(1, true));
-                add(new Equipement(2, true));
+                add(new EquipementDTO(1, true));
+                add(new EquipementDTO(2, true));
             }
         };
 
-        List<Comissaire> comissaires = new ArrayList<>(){
+        List<CommissaireDTO> commissaireDTOS = new ArrayList<>(){
             {
-                add(new Comissaire(1, RolePiste.DIRECTEUR_PISTE));
-                add(new Comissaire(2, RolePiste.COMISSAIRE_PISTE));
-                add(new Comissaire(3, RolePiste.COMISSAIRE_PISTE));
-                add(new Comissaire(4, RolePiste.DIRECTEUR_PISTE));
+                add(new CommissaireDTO(1, RolePisteDTO.DIRECTEUR_PISTE));
+                add(new CommissaireDTO(2, RolePisteDTO.COMISSAIRE_PISTE));
+                add(new CommissaireDTO(3, RolePisteDTO.COMISSAIRE_PISTE));
+                add(new CommissaireDTO(4, RolePisteDTO.DIRECTEUR_PISTE));
             }
         };
 
@@ -41,7 +41,7 @@ class OrganiserTrackdayTest {
         };
         Date date = new Date();
         try {
-            Trackday trackday = new OrganiserTrackday().createTrackday(date,1, equipements, vehiculeIds, comissaires);
+            TrackdayDTO trackday = new OrganiserTrackday().createTrackday(date,1, equipementDTOS, vehiculeIds, commissaireDTOS);
             boolean trackdayCreated = trackday != null;
             assertTrue(trackdayCreated, "Le trackday n'a pas été créé.");
 
@@ -52,44 +52,44 @@ class OrganiserTrackdayTest {
 
     @org.junit.jupiter.api.Test
     void getNbEquipementsValide() {
-        List<Equipement> equipements = new ArrayList<>(){
+        List<EquipementDTO> equipementDTOS = new ArrayList<>(){
             {
-                add(new Equipement(1, true));
-                add(new Equipement(2, true));
+                add(new EquipementDTO(1, true));
+                add(new EquipementDTO(2, true));
             }
         };
 
-        double nbEquipementValide = getNbEquipementValide(equipements);
+        double nbEquipementValide = getNbEquipementValide(equipementDTOS);
         assertTrue(nbEquipementValide >= 80, "Il y a moins de 80% d'équipements valides.");
     }
 
     @org.junit.jupiter.api.Test
     void getNbCommisaires() {
-        List<Comissaire> comissaires = new ArrayList<>(){
+        List<CommissaireDTO> commissaireDTOS = new ArrayList<>(){
             {
-                add(new Comissaire(1, RolePiste.DIRECTEUR_PISTE));
-                add(new Comissaire(2, RolePiste.COMISSAIRE_PISTE));
-                add(new Comissaire(3, RolePiste.COMISSAIRE_PISTE));
-                add(new Comissaire(4, RolePiste.DIRECTEUR_PISTE));
+                add(new CommissaireDTO(1, RolePisteDTO.DIRECTEUR_PISTE));
+                add(new CommissaireDTO(2, RolePisteDTO.COMISSAIRE_PISTE));
+                add(new CommissaireDTO(3, RolePisteDTO.COMISSAIRE_PISTE));
+                add(new CommissaireDTO(4, RolePisteDTO.DIRECTEUR_PISTE));
             }
         };
 
-        int nbComissaire = Commissaire.getNbCommisaires(comissaires);
+        int nbComissaire = Commissaire.getNbCommisaires(commissaireDTOS);
         assertTrue(nbComissaire >= 4, "Il y a moins de 4 comissaires disponibles.");
     }
 
     @org.junit.jupiter.api.Test
     void checkDirecteurAvailability() {
-        List<Comissaire> comissaires = new ArrayList<>(){
+        List<CommissaireDTO> commissaireDTOS = new ArrayList<>(){
             {
-                add(new Comissaire(1, RolePiste.DIRECTEUR_PISTE));
-                add(new Comissaire(2, RolePiste.COMISSAIRE_PISTE));
-                add(new Comissaire(3, RolePiste.COMISSAIRE_PISTE));
-                add(new Comissaire(4, RolePiste.DIRECTEUR_PISTE));
+                add(new CommissaireDTO(1, RolePisteDTO.DIRECTEUR_PISTE));
+                add(new CommissaireDTO(2, RolePisteDTO.COMISSAIRE_PISTE));
+                add(new CommissaireDTO(3, RolePisteDTO.COMISSAIRE_PISTE));
+                add(new CommissaireDTO(4, RolePisteDTO.DIRECTEUR_PISTE));
             }
         };
 
-        boolean directeurAvailability = Commissaire.checkDirecteurAvailability(comissaires);
+        boolean directeurAvailability = Commissaire.checkDirecteurAvailability(commissaireDTOS);
 
         assertTrue(directeurAvailability, "Il n'y a pas de directeur de piste disponible.");
     }
@@ -97,7 +97,7 @@ class OrganiserTrackdayTest {
     @org.junit.jupiter.api.Test
     void organiseTrackdayOK() {
         try {
-            Trackday result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(5, true));
+            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(5, true));
             assertNotNull(result);
         } catch (Exception e) {
             System.out.println(e);
@@ -108,7 +108,7 @@ class OrganiserTrackdayTest {
     @org.junit.jupiter.api.Test
     void organiseTrackdayNotEnoughComissaire() {
         try {
-            Trackday result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(3, true));
+            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(3, true));
             assertNull(result);
         } catch (Exception e) {
             assertEquals("Not enough commissaires", e.getMessage());
@@ -119,7 +119,7 @@ class OrganiserTrackdayTest {
     @org.junit.jupiter.api.Test
     void organiseTrackdayNoDirector() {
         try {
-            Trackday result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(5, false));
+            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(true), getVehiculeIdList(), getComissaireList(5, false));
             assertNull(result);
         } catch (Exception e) {
             assertEquals("No director available", e.getMessage());
@@ -130,7 +130,7 @@ class OrganiserTrackdayTest {
     @org.junit.jupiter.api.Test
     void organiseTrackdayNotEnoughEquipment() {
         try {
-            Trackday result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(false), getVehiculeIdList(), getComissaireList(5, true));
+            TrackdayDTO result = new OrganiserTrackday().createTrackday(new Date(), 100, getEquipmentList(false), getVehiculeIdList(), getComissaireList(5, true));
             assertNull(result);
         } catch (Exception e) {
             assertEquals("Not enough equipements", e.getMessage());
@@ -138,29 +138,29 @@ class OrganiserTrackdayTest {
 
     }
 
-    private List<Comissaire> getComissaireList(int nbComissaires, boolean hasChef) {
-        List<Comissaire> resultList = new ArrayList<>();
+    private List<CommissaireDTO> getComissaireList(int nbComissaires, boolean hasChef) {
+        List<CommissaireDTO> resultList = new ArrayList<>();
         int id = 0;
         if(hasChef) {
             id++;
-            resultList.add(new Comissaire(id,RolePiste.DIRECTEUR_PISTE));
+            resultList.add(new CommissaireDTO(id, RolePisteDTO.DIRECTEUR_PISTE));
         }
         int until = nbComissaires-id;
         for (int i = 0; i < until; i++) {
             id++;
-            resultList.add(new Comissaire(id,RolePiste.COMISSAIRE_PISTE));
+            resultList.add(new CommissaireDTO(id, RolePisteDTO.COMISSAIRE_PISTE));
 
         }
 
         return resultList;
     }
 
-    private List<Equipement> getEquipmentList(boolean isOK) {
-        List<Equipement> resultList = new ArrayList<>();
+    private List<EquipementDTO> getEquipmentList(boolean isOK) {
+        List<EquipementDTO> resultList = new ArrayList<>();
         int id = 0;
         for (int i = 0; i < 10; i++) {
             id++;
-            resultList.add(new Equipement(id, isOK));
+            resultList.add(new EquipementDTO(id, isOK));
         }
 
         return resultList;

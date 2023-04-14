@@ -11,8 +11,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comissaire {
+public class CommissaireDTO {
 
     private int id;
-    private RolePiste role;
+    private RolePisteDTO role;
 }

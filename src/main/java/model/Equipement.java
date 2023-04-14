@@ -1,19 +1,21 @@
 package model;
 
+import domain.EquipementDTO;
+
 import java.util.List;
 
 public class Equipement {
-    public static double getNbEquipementValide(List<domain.Equipement> equipements){
+    public static double getNbEquipementValide(List<EquipementDTO> equipementDTOS){
         int nbEquipementValide = 0;
-        if (equipements.size() == 0){
+        if (equipementDTOS.size() == 0){
             return 0;
         }
-        for (domain.Equipement equipement : equipements) {
-            if (equipement.checkEquipement()) {
+        for (EquipementDTO equipementDTO : equipementDTOS) {
+            if (equipementDTO.checkEquipement()) {
                 nbEquipementValide++;
             }
         }
 
-        return (double)nbEquipementValide/equipements.size() * 100;
+        return (double)nbEquipementValide/ equipementDTOS.size() * 100;
     }
 }
